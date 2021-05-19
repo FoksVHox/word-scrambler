@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="da" dir="ltr">
+
+<head>
+  <meta charset="utf-8">
+  <title>Word Scrambler</title>
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+  <script type="text/javascript">
+    const scramble = () => {
+      let words = $('#org_text').val().split(' '),
+        scrambled = "";
+      console.log(words);
+
+      words.forEach((word) => {
+        if (word.length < 4) {
+          scrambled += word + " ";
+        } else {
+          let letters = word.split('');
+          newWord = letters.splice(0, 1),
+          lastLet = letters.splice(letters.length - 1, 1);
+
+          console.log("Letters: ", letters);
+
+          for (var i = letters.length; i > 0; i = letters.length) {
+            let n = Math.floor(Math.random() * (letters.length - 2) + 1);
+            newWord += letters[n];
+            console.log("Letter: ", letters[n]);
+            letters.splice(n, 1);
+          }
+          newWord += lastLet;
+          scrambled += newWord + " ";
+          console.log("New word: ", newWord);
+        }
+      });
+      $('#scram_text').text(scrambled);
+    };
+  </script>
+</head>
+
+<body>
+  <textarea id="org_text" name="org-text" rows="8" cols="80"></textarea>
+  <br />
+  <button type="button" name="Scramble" onclick="scramble()">Scramble</button>
+  <p id="scram_text"></p>
+</body>
+
+</html>
